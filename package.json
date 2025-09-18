@@ -1,0 +1,22 @@
+{
+  "name": "starfield-auth-app",
+  "version": "1.0.0",
+  "description": "Interactive starfield authentication app with React and Flask",
+  "scripts": {
+    "dev": "python app.py",
+    "start": "python app.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/starfield-auth-app.git"
+  },
+  "keywords": [
+    "authentication",
+    "react",
+    "flask",
+    "starfield",
+    "animation"
+  ],
+  "author": "Naman",
+  "license": "MIT"
+}
