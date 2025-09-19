@@ -26,7 +26,7 @@ with app.app_context():
 # Default route
 @app.route("/")
 def index():
-    return "Flask Backend Chal Raha Hai!"
+    return "Flask Backend is Running!"
 
 # User registration (signup) route
 @app.route("/api/register", methods=["POST"])
@@ -36,11 +36,11 @@ def register_user():
     password = data.get("password")
 
     if not email or not password:
-        return jsonify({"error": "Email aur password zaroori hai"}), 400
+        return jsonify({"error": "Email and password are required"}), 400
 
     user_exists = User.query.filter_by(email=email).first()
     if user_exists:
-        return jsonify({"error": "Yeh email pehle se registered hai"}), 409
+        return jsonify({"error": "This email is already registered"}), 409
 
     # Password ko hash karna
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -102,7 +102,7 @@ def get_current_user():
 def logout_user():
     # Session se user ID hatana
     session.pop("user_id", None)
-    return jsonify({"message": "Logout safal hua"}), 200
+    return jsonify({"message": "Logout successful"}), 200
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))

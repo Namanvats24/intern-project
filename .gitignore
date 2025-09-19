@@ -37,6 +37,3 @@ Thumbs.db
 .env
 .env.local
 .env.production
-
-# Dependencies
-package-lock.json

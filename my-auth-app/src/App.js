@@ -319,7 +319,7 @@ const AuthPage = () => {
             const response = await apiClient.post(url, { email, password });
             setUser(response.data);
         } catch (err) {
-            setError(err.response?.data?.error || `Ek error aa gayi hai.`);
+            setError(err.response?.data?.error || `An error occurred. Please try again.`);
         }
     };
 
@@ -327,7 +327,7 @@ const AuthPage = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <h1 className="auth-title">
-                    {isLogin ? '🔑 Login Karein' : '📝 Register Karein'}
+                    {isLogin ? '🔑 Sign In' : '📝 Create Account'}
                 </h1>
                 <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group">
@@ -337,7 +337,7 @@ const AuthPage = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="form-input"
-                            placeholder="apka@email.com"
+                            placeholder="your@email.com"
                             required
                         />
                     </div>
@@ -357,13 +357,13 @@ const AuthPage = () => {
                         type="submit"
                         className="submit-button"
                     >
-                        {isLogin ? '🚀 Login' : '✨ Register'}
+                        {isLogin ? '🚀 Sign In' : '✨ Create Account'}
                     </button>
                 </form>
                 <p className="auth-switch">
-                    {isLogin ? "Aapka account nahi hai?" : "Pehle se account hai?"}
+                    {isLogin ? "Don't have an account?" : "Already have an account?"}
                     <button onClick={() => setIsLogin(!isLogin)} className="switch-button">
-                        {isLogin ? 'Register karein' : 'Login karein'}
+                        {isLogin ? 'Sign Up' : 'Sign In'}
                     </button>
                 </p>
             </div>
@@ -380,7 +380,7 @@ const Dashboard = () => {
             await apiClient.post('/logout');
             setUser(null);
         } catch (err) {
-            console.error("Logout fail ho gaya", err);
+            console.error("Logout failed", err);
         }
     };
 
@@ -390,7 +390,7 @@ const Dashboard = () => {
                 <h1 className="dashboard-title">🎉 Welcome!</h1>
                 <div className="user-info">
                     <p className="welcome-text">
-                        Aap successfully logged in hain:
+                        You are successfully logged in as:
                     </p>
                     <p className="user-email">📧 {user.email}</p>
                 </div>
