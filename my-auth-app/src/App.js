@@ -264,7 +264,7 @@ const StarfieldCanvas = () => {
 
 // Backend API ke liye base URL set karna
 const apiClient = axios.create({
-    baseURL: 'http://127.0.0.1:5000/api',
+    baseURL: 'https://web-production-480aa.up.railway.app/api',
     withCredentials: true // Cookies (session) bhejne ke liye zaroori hai
 });
 
