@@ -1,4 +1,4 @@
-# Starfield Authentication App
+# Authentication App
 
 A modern full-stack web application featuring an interactive starfield animation with user authentication functionality.
 
