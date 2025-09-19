@@ -5,8 +5,8 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #000000;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #08101a 0%, #0f1423 50%, #050812 100%);
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
   position: relative;
   overflow: hidden;
@@ -62,44 +62,26 @@
 }
 
 .auth-card {
-  background: rgba(15, 15, 35, 0.85);
-  border-radius: 25px;
-  box-shadow: 0 25px 80px rgba(100, 200, 255, 0.2), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(20, 25, 35, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
   padding: 40px;
-  backdrop-filter: blur(20px);
-  border: 2px solid rgba(100, 200, 255, 0.3);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   position: relative;
   overflow: hidden;
 }
 
-.auth-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  animation: shimmer 3s infinite;
-}
 
-@keyframes shimmer {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
 
 .auth-title {
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 24px;
+  font-weight: 500;
   text-align: center;
-  color: #ffffff;
-  margin-bottom: 30px;
-  background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 50%, #1e88e5 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
+  color: #f8fafc;
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
   position: relative;
   z-index: 2;
 }
@@ -118,33 +100,31 @@
 
 .form-label {
   font-size: 14px;
-  font-weight: 600;
-  color: #e0e7ff;
-  text-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
+  font-weight: 500;
+  color: #cbd5e1;
+  margin-bottom: 6px;
 }
 
 .form-input {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid rgba(100, 200, 255, 0.3);
-  border-radius: 10px;
-  font-size: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #f1f5f9;
+  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .form-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #64b5f6;
-  box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.3),
-              inset 0 0 10px rgba(100, 200, 255, 0.1);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .error-message {
@@ -160,40 +140,21 @@
 .submit-button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #1976d2 0%, #42a5f5 50%, #64b5f6 100%);
-  color: white;
-  border: 2px solid rgba(100, 200, 255, 0.5);
-  border-radius: 15px;
-  font-size: 16px;
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-  position: relative;
-  overflow: hidden;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.submit-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.submit-button:hover::before {
-  left: 100%;
+  transition: all 0.2s ease;
+  margin-top: 16px;
 }
 
 .submit-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(100, 181, 246, 0.4),
-              0 0 20px rgba(100, 200, 255, 0.3);
-  border-color: #64b5f6;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
 }
 
 .submit-button:active {
@@ -203,24 +164,25 @@
 .auth-switch {
   text-align: center;
   font-size: 14px;
-  color: #c7d2fe;
-  margin-top: 20px;
+  color: #94a3b8;
+  margin-top: 24px;
 }
 
 .switch-button {
   background: none;
   border: none;
-  color: #64b5f6;
-  font-weight: 600;
+  color: #f1f5f9;
+  font-weight: 500;
   cursor: pointer;
   text-decoration: underline;
-  margin-left: 5px;
+  text-decoration-color: rgba(255, 255, 255, 0.3);
+  margin-left: 4px;
   transition: all 0.2s ease;
 }
 
 .switch-button:hover {
-  color: #90caf9;
-  text-shadow: 0 0 8px rgba(100, 200, 255, 0.5);
+  color: #ffffff;
+  text-decoration-color: rgba(255, 255, 255, 0.6);
 }
 
 .switch-button:hover {
@@ -234,103 +196,64 @@
 }
 
 .dashboard-card {
-  background: rgba(15, 15, 35, 0.85);
-  border-radius: 25px;
-  box-shadow: 0 25px 80px rgba(100, 200, 255, 0.2), 
-              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(20, 25, 35, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
   padding: 40px;
   text-align: center;
-  backdrop-filter: blur(20px);
-  border: 2px solid rgba(100, 200, 255, 0.3);
-  position: relative;
-  overflow: hidden;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.dashboard-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  animation: shimmer 4s infinite;
-}
+
 
 .dashboard-title {
-  font-size: 32px;
-  font-weight: bold;
-  color: #ffffff;
-  margin-bottom: 30px;
-  background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 50%, #1e88e5 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 20px rgba(100, 200, 255, 0.5);
-  position: relative;
-  z-index: 2;
+  font-size: 28px;
+  font-weight: 500;
+  color: #f8fafc;
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
 }
 
 .user-info {
-  background: rgba(100, 200, 255, 0.1);
-  border-radius: 15px;
-  padding: 20px;
-  margin-bottom: 30px;
-  border-left: 4px solid #64b5f6;
-  border: 1px solid rgba(100, 200, 255, 0.2);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .welcome-text {
-  color: #c7d2fe;
-  font-size: 16px;
-  margin: 0 0 10px 0;
+  color: #94a3b8;
+  font-size: 15px;
+  margin: 0 0 8px 0;
 }
 
 .user-email {
-  font-size: 18px;
-  font-weight: 600;
-  color: #64b5f6;
+  font-size: 16px;
+  font-weight: 500;
+  color: #f1f5f9;
   margin: 0;
-  text-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
 }
 
 .logout-button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #d32f2f 0%, #f44336 50%, #ff5722 100%);
-  color: white;
-  border: 2px solid rgba(255, 87, 34, 0.5);
-  border-radius: 15px;
-  font-size: 16px;
-  font-weight: 600;
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.logout-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-.logout-button:hover::before {
-  left: 100%;
+  transition: all 0.2s ease;
 }
 
 .logout-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(244, 67, 54, 0.4),
-              0 0 20px rgba(255, 87, 34, 0.3);
-  border-color: #ff5722;
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
 }
 
 .logout-button:active {

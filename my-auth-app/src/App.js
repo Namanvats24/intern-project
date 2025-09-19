@@ -27,34 +27,33 @@ const StarfieldCanvas = () => {
         // Generate floating stars with movement
         const generateStars = () => {
             const stars = [];
-            for (let i = 0; i < 200; i++) {
+            for (let i = 0; i < 80; i++) {
                 stars.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    size: Math.random() * 3 + 0.5,
-                    opacity: Math.random() * 0.8 + 0.2,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    twinkleSpeed: Math.random() * 0.02 + 0.01,
-                    baseOpacity: Math.random() * 0.6 + 0.4,
+                    size: Math.random() * 1.5 + 0.5,
+                    opacity: Math.random() * 0.4 + 0.3,
+                    vx: (Math.random() - 0.5) * 0.2,
+                    vy: (Math.random() - 0.5) * 0.2,
+                    twinkleSpeed: Math.random() * 0.005 + 0.002,
+                    baseOpacity: Math.random() * 0.3 + 0.2,
                     pulsePhase: Math.random() * Math.PI * 2
                 });
             }
             starsRef.current = stars;
         };
 
-        // Generate flowing particles
+        // Generate subtle ambient particles
         const generateParticles = () => {
             const particles = [];
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 15; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 2,
-                    vy: (Math.random() - 0.5) * 2,
-                    opacity: Math.random() * 0.3 + 0.1,
-                    size: Math.random() * 1.5 + 0.5,
-                    trail: []
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    opacity: Math.random() * 0.1 + 0.05,
+                    size: Math.random() * 0.8 + 0.3
                 });
             }
             particlesRef.current = particles;
@@ -77,16 +76,14 @@ const StarfieldCanvas = () => {
             timeRef.current += 0.016; // ~60fps timing
             
             // Smooth mouse interpolation for fluid movement
-            mouseRef.current.x += (targetMouse.x - mouseRef.current.x) * 0.1;
-            mouseRef.current.y += (targetMouse.y - mouseRef.current.y) * 0.1;
+            mouseRef.current.x += (targetMouse.x - mouseRef.current.x) * 0.05;
+            mouseRef.current.y += (targetMouse.y - mouseRef.current.y) * 0.05;
 
-            // Create gradient background
-            const gradient = ctx.createRadialGradient(
-                mouseRef.current.x, mouseRef.current.y, 0,
-                mouseRef.current.x, mouseRef.current.y, 400
-            );
-            gradient.addColorStop(0, 'rgba(20, 20, 40, 1)');
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 1)');
+            // Create subtle gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, 'rgba(8, 12, 25, 1)');
+            gradient.addColorStop(0.5, 'rgba(15, 20, 35, 1)');
+            gradient.addColorStop(1, 'rgba(5, 8, 18, 1)');
             
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -95,12 +92,8 @@ const StarfieldCanvas = () => {
             const stars = starsRef.current;
             const particles = particlesRef.current;
 
-            // Update and draw flowing particles with trails
+            // Update and draw subtle ambient particles
             particles.forEach(particle => {
-                // Add current position to trail
-                particle.trail.push({ x: particle.x, y: particle.y, opacity: particle.opacity });
-                if (particle.trail.length > 20) particle.trail.shift();
-
                 // Update position
                 particle.x += particle.vx;
                 particle.y += particle.vy;
@@ -111,19 +104,10 @@ const StarfieldCanvas = () => {
                 if (particle.y < 0) particle.y = canvas.height;
                 if (particle.y > canvas.height) particle.y = 0;
 
-                // Draw particle trail
-                particle.trail.forEach((point, i) => {
-                    const trailOpacity = (i / particle.trail.length) * particle.opacity;
-                    ctx.beginPath();
-                    ctx.arc(point.x, point.y, particle.size * (i / particle.trail.length), 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(100, 150, 255, ${trailOpacity})`;
-                    ctx.fill();
-                });
-
-                // Draw main particle
+                // Draw simple particle
                 ctx.beginPath();
                 ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(150, 200, 255, ${particle.opacity})`;
+                ctx.fillStyle = `rgba(200, 220, 255, ${particle.opacity})`;
                 ctx.fill();
             });
 
@@ -139,31 +123,22 @@ const StarfieldCanvas = () => {
                 if (star.y < -10) star.y = canvas.height + 10;
                 if (star.y > canvas.height + 10) star.y = -10;
 
-                // Advanced twinkling with sine waves
+                // Gentle twinkling with sine waves
                 star.pulsePhase += star.twinkleSpeed;
-                const pulse = Math.sin(star.pulsePhase) * 0.3 + 0.7;
+                const pulse = Math.sin(star.pulsePhase) * 0.2 + 0.8;
                 star.opacity = star.baseOpacity * pulse;
 
-                // Dynamic size based on proximity to mouse
+                // Subtle size variation based on distance from mouse
                 const distanceToMouse = Math.sqrt(
                     Math.pow(mouse.x - star.x, 2) + Math.pow(mouse.y - star.y, 2)
                 );
-                const proximityFactor = Math.max(0.5, 1 - distanceToMouse / 200);
+                const proximityFactor = Math.max(0.8, 1 - distanceToMouse / 300);
                 const dynamicSize = star.size * proximityFactor;
 
-                // Draw star with glow effect
-                const glowSize = dynamicSize * 3;
-                const gradient = ctx.createRadialGradient(
-                    star.x, star.y, 0,
-                    star.x, star.y, glowSize
-                );
-                gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity})`);
-                gradient.addColorStop(0.3, `rgba(200, 220, 255, ${star.opacity * 0.3})`);
-                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                
+                // Draw star with subtle glow
                 ctx.beginPath();
-                ctx.arc(star.x, star.y, glowSize, 0, Math.PI * 2);
-                ctx.fillStyle = gradient;
+                ctx.arc(star.x, star.y, dynamicSize + 1, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity * 0.1})`;
                 ctx.fill();
 
                 // Draw core star
@@ -173,76 +148,45 @@ const StarfieldCanvas = () => {
                 ctx.fill();
             });
 
-            // Draw flowing connections from mouse to stars
+            // Draw subtle connections from mouse to nearby stars
             stars.forEach(star => {
                 const distance = Math.sqrt(
                     Math.pow(mouse.x - star.x, 2) + Math.pow(mouse.y - star.y, 2)
                 );
                 
-                if (distance < 250) {
-                    const connectionOpacity = 0.6 * (1 - distance / 250);
+                if (distance < 120) {
+                    const connectionOpacity = 0.15 * (1 - distance / 120);
                     
-                    // Animated flowing effect
-                    const flowOffset = Math.sin(timeRef.current * 3 + distance * 0.01) * 20;
-                    const midX = (mouse.x + star.x) / 2 + flowOffset;
-                    const midY = (mouse.y + star.y) / 2 + Math.cos(timeRef.current * 2) * 10;
-
-                    // Draw curved flowing line
                     ctx.beginPath();
                     ctx.moveTo(mouse.x, mouse.y);
-                    ctx.quadraticCurveTo(midX, midY, star.x, star.y);
-                    ctx.strokeStyle = `rgba(100, 200, 255, ${connectionOpacity})`;
-                    ctx.lineWidth = 2;
+                    ctx.lineTo(star.x, star.y);
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${connectionOpacity})`;
+                    ctx.lineWidth = 0.5;
                     ctx.stroke();
-
-                    // Add energy particles along the line
-                    if (Math.random() < 0.1) {
-                        const t = Math.random();
-                        const energyX = (1-t)*(1-t)*mouse.x + 2*(1-t)*t*midX + t*t*star.x;
-                        const energyY = (1-t)*(1-t)*mouse.y + 2*(1-t)*t*midY + t*t*star.y;
-                        
-                        ctx.beginPath();
-                        ctx.arc(energyX, energyY, 2, 0, Math.PI * 2);
-                        ctx.fillStyle = `rgba(150, 255, 200, ${connectionOpacity})`;
-                        ctx.fill();
-                    }
                 }
             });
 
-            // Draw magical connections between nearby stars
+            // Draw minimal connections between very close stars
             stars.forEach((star1, i) => {
-                stars.slice(i + 1, i + 5).forEach(star2 => {
+                stars.slice(i + 1, i + 3).forEach(star2 => {
                     const distance = Math.sqrt(
                         Math.pow(star1.x - star2.x, 2) + Math.pow(star1.y - star2.y, 2)
                     );
                     
-                    if (distance < 120) {
-                        const connectionOpacity = 0.3 * (1 - distance / 120);
-                        const animatedOffset = Math.sin(timeRef.current + i) * 2;
+                    if (distance < 80) {
+                        const connectionOpacity = 0.08 * (1 - distance / 80);
                         
                         ctx.beginPath();
                         ctx.moveTo(star1.x, star1.y);
-                        ctx.lineTo(star2.x + animatedOffset, star2.y + animatedOffset);
-                        ctx.strokeStyle = `rgba(180, 180, 255, ${connectionOpacity})`;
-                        ctx.lineWidth = 1;
+                        ctx.lineTo(star2.x, star2.y);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${connectionOpacity})`;
+                        ctx.lineWidth = 0.3;
                         ctx.stroke();
                     }
                 });
             });
 
-            // Draw mouse cursor glow effect
-            const mouseGlow = ctx.createRadialGradient(
-                mouse.x, mouse.y, 0,
-                mouse.x, mouse.y, 50
-            );
-            mouseGlow.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-            mouseGlow.addColorStop(0.5, 'rgba(100, 200, 255, 0.3)');
-            mouseGlow.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            
-            ctx.beginPath();
-            ctx.arc(mouse.x, mouse.y, 50, 0, Math.PI * 2);
-            ctx.fillStyle = mouseGlow;
-            ctx.fill();
+
 
             animationRef.current = requestAnimationFrame(animate);
         };
