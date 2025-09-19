@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_ECHO'] = os.environ.get('FLASK_ENV') == 'development'
 bcrypt = Bcrypt(app)
 # CORS (Cross-Origin Resource Sharing) ko setup karna taki React app communicate kar sake
 # Production mein specific origins specify karein
-allowed_origins = os.environ.get('ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
+allowed_origins = os.environ.get('ALLOWED_ORIGINS', 'http://localhost:3000,https://intern-project-naman.netlify.app').split(',')
 CORS(app, supports_credentials=True, origins=allowed_origins)
 db.init_app(app)
 
